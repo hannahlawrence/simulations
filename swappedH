@@ -1,0 +1,28 @@
+function [new] = swappedH(i, j, old, binExp, adjMat)
+%binExp = double(binExp);
+len = length(binExp);
+tempExp = binExp;
+tempExp(i) = binExp(j);
+tempExp(j) = binExp(i);
+new = old;
+s1=0;
+for c=1:len
+    s1 = s1 + (adjMat(j, c)*binExp(c));
+end
+s2=0;
+for c=1:len
+    s2 = s2 + (adjMat(i, c)*binExp(c));
+end
+for n=1:len
+    if n ~= i
+        if n~= j
+           new = new + ((binExp(n))*(-2* ((binExp(i)*(adjMat(n, i))) + (binExp(j)*(adjMat(n, j))))));
+        end
+    end
+    if n == j
+           new = new + (-2*binExp(j)*s1)+((binExp(i))*(-2* ((binExp(i)*(adjMat(n, i))) + (binExp(j)*(adjMat(n, j)))))) ;
+    end
+    if n == i
+        new = new + (-2*binExp(i)*s2)+((binExp(j))*(-2* ((binExp(i)*(adjMat(n, i))) + (binExp(j)*(adjMat(n, j)))))); 
+    end
+end
