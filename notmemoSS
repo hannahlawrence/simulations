@@ -1,0 +1,19 @@
+function [] = notmemoSS(n, binExp, adjMat)
+len = length(binExp);
+data = ones(1, n);
+oldH = H(binExp, adjMat);
+for k=1:n
+    a = datasample(1:len, 2, 'Replace', false);
+    if binExp(a(1)) ~= binExp(a(2))
+        newH = (-1*swappedH(a(1), a(2), -oldH, binExp, adjMat));
+        if oldH > newH
+            data(k)= newH;
+            oldH = newH;
+        else
+            data(k)=oldH;
+        end
+    else
+        data(k)=oldH;
+    end
+end
+plot(1:n, data)
