@@ -1,0 +1,15 @@
+function [data] = constantswap(n, binExp, adjMat)
+%n is number of swaps
+len = length(binExp);
+data = ones(1, n);
+for k=1:n
+    a = datasample(1:len, 2, 'Replace', false);
+    if binExp(a(1)) ~= binExp(a(2))
+        temp = binExp(a(1));
+        binExp(a(1)) = binExp(a(2));
+        binExp(a(2)) = temp;
+    end
+    data(k) = H(binExp, adjMat);
+end
+
+%plot(1:n, data)
